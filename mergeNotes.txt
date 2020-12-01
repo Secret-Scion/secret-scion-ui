@@ -1,0 +1,13 @@
+Development notes
+
+Check out to MASTER and Fetch + Pull as needed to update to latest code.
+
+Merge MASTER into your-branch.
+
+Push merged code into remote your-branch.
+
+Compile and test for any unintentional breaks in functionality.
+
+Merge your-branch into MASTER
+
+Push updated code to MASTER
