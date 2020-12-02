@@ -23,11 +23,16 @@ import { Component, OnInit } from '@angular/core';
 export class MainComponent implements OnInit {
 
   showSignUp: boolean;
+  currentState = 'initial';
 
   constructor() { }
 
   ngOnInit(): void {
     this.showSignUp = false;
+  }
+
+  changeState(): void {
+    this.currentState = this.currentState === 'initial' ? 'final' : 'initial';
   }
 
   showToggle(): void {
@@ -36,6 +41,7 @@ export class MainComponent implements OnInit {
     } else if (!this.showSignUp) {
       this.showSignUp = true;
     }
+    this.changeState();
   }
 
 }

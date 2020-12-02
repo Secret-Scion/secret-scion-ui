@@ -37,7 +37,7 @@
       </button>
     </div>
 
-    <mat-expansion-panel id="signUpPanel" hideToggle [expanded]="showSignUp">
+    <mat-expansion-panel [@fader]="currentState" id="signUpPanel" hideToggle [expanded]="showSignUp">
       <mat-expansion-panel-header style="justify-content: center !important;">
         <mat-panel-title>Sign Up</mat-panel-title>
         <!-- <mat-panel-description></mat-panel-description> -->
