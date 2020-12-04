@@ -8,38 +8,26 @@
       <mat-card-header>
         <mat-card-title>Secret Scion</mat-card-title>
         <mat-card-subtitle>
-          <i>A <strong>Nosgothic</strong> Secret Santa</i>
+          <em>A <strong>Nosgothic</strong> Secret Santa</em>
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>Vernunft fängt wieder an zu sprechen Und Hoffnung wieder an zu sprechen Und Hoffnung wieder an zu sprechen
-          Und
-          Hoffnung wieder an zu blühn; Man sehnt sich nach des Lebens goldner Baum. So schreitet in dem engen
-          Bretterhaus
-          (Theater, Bühne) Den ganzen Kreis der Schöpfung aus, Und wandelt mit bedächt'ger Schnelle Vom Himmel durch die
-          Welt zur Hölle! Es irrt der Mensch, wenn er nur Worte hört, Es müsse sich dabei doch auch was denken lassen.
-          Wenn sich der Mensch, wenn er nur Worte hört, Es müsse sich dabei doch auch was denken lassen. Ich höre schon
-          des Dorfs
-          Getümmel, Hier ist des Volkes wahrer Himmel, Zufrieden jauchzet groß und klein, Hier bin ich nicht; doch viel
-          ist mir bewusst. Vernunft fängt wieder an zu sprechen Und Hoffnung wieder an zu sprechen Und Hoffnung wieder
-          anzu sprechen Und Hoffnung wieder an zu sprechen Und Hoffnung wieder an zu blühn; Man sehnt sich nach des
-          Lebens
-          goldner Baum. So schreitet in dem engen Bretterhaus (Theater, Bühne) Den ganzen Kreis der Schöpfung aus, Und
-          wandelt mit bedächtger Schnelle Vom Himmel durch die Welt zur Hölle. Wenn sich der Mensch, wenn er gut
-          gezogen,
-          Wird selbst ein weiser Mann gewogen. Wenn sich der Mensch, wenn er sie beim Kragen hätte...</p>
+        <p>You know what? It is beets. I've crashed into a beet truck. Hey, you know how I'm, like, always trying to
+          save the planet? Here's my chance. Do you have any idea how long it takes those cups to decompose. Just my
+          luck, no ice. They're using our own satellites against us. And the clock is ticking.</p>
       </mat-card-content>
     </mat-card>
 
     <div class="signUpToggle row" style="justify-content: center;">
-      <button mat-raised-button (click)="showToggle()">
+      <button mat-raised-button (click)="showToggle()" style="width: 7em;">
         {{showSignUp ? 'Nevermind' : 'Sign Up'}}
       </button>
     </div>
 
-    <mat-expansion-panel [@fader]="currentState" id="signUpPanel" hideToggle [expanded]="showSignUp">
-      <mat-expansion-panel-header style="justify-content: center !important;">
-        <mat-panel-title>Sign Up</mat-panel-title>
+    <mat-expansion-panel [@fader]="currentState" id="signUpPanel" hideToggle [expanded]="showSignUp"
+      (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header [expandedHeight]="'3em'" [collapsedHeight]="'1em'"
+        style="justify-content: center !important;" (click)="showToggle()">
       </mat-expansion-panel-header>
 
       <p>The user Sign-Up form will populate here.</p>
