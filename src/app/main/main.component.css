@@ -1,126 +1,31 @@
 /* Type Selectors */
-body {
-  background-color: #0c0f0a;
-}
-
 mat-card p,
 mat-card-title,
 mat-card-subtitle {
   font-size: larger;
+  color: white;
+}
+
+mat-card {
+  background-color: #2c2f33;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+  margin-top: -1rem;
+}
+
+::ng-deep label.ng-star-inserted {
+  transform: translateY(-0.59375em) scale(0.75) !important;
 }
 
 /* Class Selectors */
 .signUpToggle {
   margin-top: 1em;
 }
-
-/* .fade-out {
-  animation: fadeOut ease 1s;
-  -webkit-animation: fadeOut ease 1s;
-  -moz-animation: fadeOut ease 1s;
-  -o-animation: fadeOut ease 1s;
-  -ms-animation: fadeOut ease 1s;
-}
-
-.fade-in {
-  animation: fadeIn ease 1s;
-  -webkit-animation: fadeIn ease 1s;
-  -moz-animation: fadeIn ease 1s;
-  -o-animation: fadeIn ease 1s;
-  -ms-animation: fadeIn ease 1s;
-}
-
-/* Animations */
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@-moz-keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@-o-keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@-ms-keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-moz-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-} */
 
 /* ID Selectors */
 #signUpPanel {
