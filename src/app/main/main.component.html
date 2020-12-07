@@ -136,10 +136,15 @@
 
       </div>
 
-      <mat-action-row style="justify-content: center;">
-        <div class="signUpToggle row" style="justify-content: center;">
-          <button mat-raised-button (click)="showToggle(true)" style="width: 7em;">
+      <mat-action-row style="justify-content: space-evenly;">
+        <div class="row">
+          <button mat-raised-button (click)="showToggle(true)" style="width: 10em;">
             Submit
+          </button>
+        </div>
+        <div class="row">
+          <button mat-raised-button (click)="saveToJson()" style="width: 10em;">
+            Export JSON
           </button>
         </div>
       </mat-action-row>
