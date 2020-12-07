@@ -4,6 +4,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
+import * as FileSaver from 'file-saver';
 import { take } from 'rxjs/operators';
 import * as UserData from '../users.json';
 
@@ -38,9 +39,11 @@ export class MainComponent implements OnInit {
   showSignUp: boolean;
   currentState = 'initial';
   panelOpenState = false;
+  currId: number;
 
   // When setting up formGroups, please place custom Validators beneath Angular's built-in validators //
   signUpForm = this.fb.group({
+    id: [''],
     discordUser: ['',
       [
         Validators.required,
@@ -84,6 +87,7 @@ export class MainComponent implements OnInit {
     this.showSignUp = false;
     this.showToggle(); // Remove this after form works
     console.log(this.allUsersArr);
+    this.findNextId();
   }
 
   // All functions established here //
@@ -104,10 +108,28 @@ export class MainComponent implements OnInit {
     this.changeState();
 
     if (submit) {
-      this.allUsersArr.push(this.signUpForm.value);
+      const newUser = this.signUpForm.value;
+      newUser.id = this.currId;
+      this.allUsersArr.push(newUser);
       this.resetChecks();
       this.signUpForm.reset();
+      this.findNextId();
     }
+  }
+
+  // this function spits out a json file...but not the json file I need...
+  saveToJson() {
+    const blob = new Blob([this.allUsersArr], { type: 'text' });
+    FileSaver.saveAs(blob, 'users.json');
+    console.log(blob);
+  }
+
+  findNextId(): void {
+    const idArr = [];
+    this.allUsersArr.forEach(user => {
+      idArr.push(user.id);
+    });
+    this.currId = (Math.max(...idArr) + 1);
   }
 
   markFavorite(game): void {
