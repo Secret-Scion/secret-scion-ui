@@ -30,20 +30,35 @@
         style="justify-content: center !important;" (click)="showToggle()">
       </mat-expansion-panel-header>
 
-      <div class="col container-fluid textColor">
+      <div class="col container-fluid textColor" [formGroup]="signUpForm">
         <!-- User registration form -->
+
         <div class="row" style="justify-content: flex-start;">
-          <div class="col-1">
+          <div class="col">
             <div class="row">
-              <label>Age</label>
+              <label>Server Role</label>
             </div>
             <div class="row">
-              <mat-form-field appearance="outline" [formGroup]="signUpForm" style="width: 75%;">
-                <input matInput formControlName="discriminator" placeholder="####">
-              </mat-form-field>
+              <mat-radio-group formControlName="isGuardian">
+                <div class="col">
+                  <div class="row">
+                    <mat-radio-button color="warn" value="true">
+                      Circle of Nyan
+                    </mat-radio-button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <mat-radio-button color="warn" value="false">
+                      The Common Rabble
+                    </mat-radio-button>
+                  </div>
+                </div>
+              </mat-radio-group>
             </div>
           </div>
         </div>
+        <br>
 
         <div class="row" style="justify-content: flex-start;">
           <div class="col-5">
@@ -51,7 +66,7 @@
               <label>Discord Username</label>
             </div>
             <div class="row">
-              <mat-form-field appearance="outline" [formGroup]="signUpForm" style="width: 100%; margin-right: 1em;">
+              <mat-form-field appearance="outline" style="width: 100%; margin-right: 1em;">
                 <input matInput formControlName="discordUser">
               </mat-form-field>
             </div>
@@ -61,12 +76,13 @@
               <label>&nbsp;</label>
             </div>
             <div class="row">
-              <mat-form-field appearance="outline" [formGroup]="signUpForm" style="width: 75%;">
+              <mat-form-field appearance="outline" style="width: 75%;">
                 <input matInput formControlName="discriminator" placeholder="####">
               </mat-form-field>
             </div>
           </div>
         </div>
+        <br>
 
         <div class="row" style="justify-content: flex-start;">
           <div class="col">
@@ -76,9 +92,9 @@
             <div class="row">
               <section>
                 <div class="col">
-                  <div class="row" *ngFor="let game of series" value="game">
-                    <mat-checkbox color="warn" (click)="markFavorite(game)">
-                      {{ game }}
+                  <div class="row" *ngFor="let game of series" value="game.nm">
+                    <mat-checkbox color="warn" [checked]="game.checked" (click)="markFavorite(game.nm)">
+                      {{ game.nm }}
                     </mat-checkbox>
                   </div>
                 </div>
@@ -86,20 +102,22 @@
             </div>
           </div>
         </div>
+        <br>
 
         <div class="row" style="justify-content: flex-start;">
           <div class="col-6">
             <div class="row">
-              <label style="margin-top: 1em;">Likes</label>
+              <label>Likes</label>
             </div>
             <div class="row">
-              <mat-form-field appearance="outline" [formGroup]="signUpForm" style="width: 100%; margin-right: 1em;">
+              <mat-form-field appearance="outline" style="width: 100%; margin-right: 1em;">
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3"
                   cdkAutosizeMaxRows="10" formControlName="userLikes"></textarea>
               </mat-form-field>
             </div>
           </div>
         </div>
+        <br>
 
         <div class="row" style="justify-content: flex-start;">
           <div class="col-6">
@@ -107,21 +125,23 @@
               <label style="margin-top: 1em;">Dislikes</label>
             </div>
             <div class="row">
-              <mat-form-field appearance="outline" [formGroup]="signUpForm" style="width: 100%; margin-right: 1em;">
+              <mat-form-field appearance="outline" style="width: 100%; margin-right: 1em;">
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3"
                   cdkAutosizeMaxRows="10" formControlName="userDislikes"></textarea>
               </mat-form-field>
             </div>
           </div>
         </div>
+        <br>
 
       </div>
 
-      <div class="signUpToggle row" style="justify-content: center;">
-        <button mat-raised-button (click)="showToggle()" style="width: 7em;">
-          {{showSignUp ? 'Nevermind' : 'Sign Up'}}
-        </button>
-      </div>
-
+      <mat-action-row style="justify-content: center;">
+        <div class="signUpToggle row" style="justify-content: center;">
+          <button mat-raised-button (click)="showToggle(true)" style="width: 7em;">
+            Submit
+          </button>
+        </div>
+      </mat-action-row>
     </mat-expansion-panel>
   </div>

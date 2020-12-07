@@ -5,6 +5,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import * as UserData from '../users.json';
 
 // Please comment your code as needed. //
 // We are not all Brance //
@@ -33,6 +34,7 @@ export class MainComponent implements OnInit {
 
   // Establish all Properties/Variables here //
   // Please group properties of same type together when possible //
+  allUsersArr: any = (UserData as any).default;
   showSignUp: boolean;
   currentState = 'initial';
   panelOpenState = false;
@@ -57,16 +59,17 @@ export class MainComponent implements OnInit {
         Validators.minLength(2)]],
     faveGames: [''],
     userLikes: [''],
-    userDislikes: ['']
+    userDislikes: [''],
+    isGuardian: ['', Validators.required]
   });
 
   series = [
-    'Blood Omen',
-    'Soul Reaver',
-    'Soul Reaver 2',
-    'Defiance',
-    'Blood Omen 2',
-    'Nosgoth'
+    { nm: 'Blood Omen', checked: false },
+    { nm: 'Soul Reaver', checked: false },
+    { nm: 'Soul Reaver 2', checked: false },
+    { nm: 'Defiance', checked: false },
+    { nm: 'Blood Omen 2', checked: false },
+    { nm: 'Nosgoth', checked: false },
   ];
 
   userFavesArr: string[] = [];
@@ -74,12 +77,13 @@ export class MainComponent implements OnInit {
   // Constructor and Lifecycle Methods ONLY //
   constructor(
     private fb: FormBuilder,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
   ) { }
 
   ngOnInit(): void {
     this.showSignUp = false;
     this.showToggle(); // Remove this after form works
+    console.log(this.allUsersArr);
   }
 
   // All functions established here //
@@ -89,7 +93,7 @@ export class MainComponent implements OnInit {
     this.panelOpenState = (this.currentState === 'initial') ? false : true;
   }
 
-  showToggle(): void {
+  showToggle(submit?): void {
     this.signUpForm.markAllAsTouched();
     console.log(this.signUpForm.value);
     if (this.showSignUp) {
@@ -98,6 +102,12 @@ export class MainComponent implements OnInit {
       this.showSignUp = true;
     }
     this.changeState();
+
+    if (submit) {
+      this.allUsersArr.push(this.signUpForm.value);
+      this.resetChecks();
+      this.signUpForm.reset();
+    }
   }
 
   markFavorite(game): void {
@@ -110,7 +120,13 @@ export class MainComponent implements OnInit {
     this.signUpForm.controls.faveGames.setValue(this.userFavesArr);
   }
 
-  triggerResize() {
+  resetChecks(): void {
+    this.series.forEach(game => {
+      game.checked = false;
+    });
+  }
+
+  triggerResize(): void {
     // Wait for changes to be applied, then trigger textarea resize.
     this._ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));

@@ -1,0 +1,17 @@
+[{
+  "id": 1,
+  "age": "",
+  "discordUser": "MobiusDidNothingWrong",
+  "discriminator": "6942",
+  "faveGames": [
+    "Blood Omen",
+    "Soul Reaver",
+    "Soul Reaver 2",
+    "Defiance",
+    "Blood Omen 2",
+    "Nosgoth"
+  ],
+  "isGuardian": "true",
+  "userDislikes": "No.",
+  "userLikes": "Yes."
+}]
