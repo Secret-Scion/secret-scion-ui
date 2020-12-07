@@ -30,7 +30,7 @@
         style="justify-content: center !important;" (click)="showToggle()">
       </mat-expansion-panel-header>
 
-      <div class="col container-fluid">
+      <div class="col container-fluid textColor">
         <!-- User registration form -->
         <div class="row" style="justify-content: flex-start;">
           <div class="col-1">
@@ -115,6 +115,12 @@
           </div>
         </div>
 
+      </div>
+
+      <div class="signUpToggle row" style="justify-content: center;">
+        <button mat-raised-button (click)="showToggle()" style="width: 7em;">
+          {{showSignUp ? 'Nevermind' : 'Sign Up'}}
+        </button>
       </div>
 
     </mat-expansion-panel>

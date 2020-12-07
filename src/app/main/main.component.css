@@ -6,7 +6,8 @@ mat-card-subtitle {
   color: white;
 }
 
-mat-card {
+mat-card,
+mat-expansion-panel {
   background-color: #2c2f33;
 }
 
@@ -22,6 +23,10 @@ mat-card {
   transform: translateY(-0.59375em) scale(0.75) !important;
 }
 
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white;
+}
+
 /* Class Selectors */
 .signUpToggle {
   margin-top: 1em;
@@ -30,4 +35,9 @@ mat-card {
 /* ID Selectors */
 #signUpPanel {
   margin-top: 1em;
+}
+
+.textColor {
+  font-size: larger;
+  color: white;
 }
