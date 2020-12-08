@@ -119,13 +119,13 @@ export class MainComponent implements OnInit {
 
   // this function spits out a json file...but not the json file I need...
   saveToJson() {
-    const jsonse = JSON.stringify(this.signUpForm.value);
+    const jsonse = JSON.stringify(this.allUsersArr);
     const blob = new Blob([jsonse], {type: "application/json"});
     FileSaver.saveAs(blob, 'users.json');
     console.log(blob);
   }
 
-  findNextId(): void {
+  findNextId() {
     const idArr = [];
     this.allUsersArr.forEach(user => {
       idArr.push(user.id);
