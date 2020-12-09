@@ -132,27 +132,23 @@ export class MainComponent implements OnInit {
       nonGuardians = nonGuardians.filter(user => user !== userOne);
       const userTwo = nonGuardians[Math.floor(Math.random() * Math.floor(nonGuardians.length))];
       nonGuardians = nonGuardians.filter(user => user !== userTwo);
-      pairings.push({
-        discordUser: userOne.discordUser,
-        discriminator: userOne.discriminator,
-        giftRecipient: userTwo
-      });
-      pairings.push({
-        discordUser: userTwo.discordUser,
-        discriminator: userTwo.discriminator,
-        giftRecipient: userOne
-      });
+      pairings.push(this.makePairing(userOne, userTwo));
+      pairings.push(this.makePairing(userTwo, userOne));
     }
     if (nonGuardians.length === 1){
-      pairings.push({
-        discordUser: nonGuardians[0].discordUser,
-        discriminator: nonGuardians[0].discriminator,
-        giftRecipient: 'no friends'
-      });
+      pairings.push(this.makePairing(nonGuardians[0], 'no friends'));
     }
     const pairingJson = JSON.stringify(pairings);
     const blob = new Blob([pairingJson], { type: 'application/json' });
     FileSaver.saveAs(blob, 'draw.json');
+  }
+
+  makePairing(gifter, giftee): object {
+    return {
+      discordUser: gifter.discordUser,
+      discriminator: gifter.discriminator,
+      giftRecipient: giftee
+    };
   }
 
   findNextId(): void {
