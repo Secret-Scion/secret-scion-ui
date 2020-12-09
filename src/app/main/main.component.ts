@@ -128,13 +128,14 @@ export class MainComponent implements OnInit {
     let nonGuardians = this.allUsersArr.filter(user => !user.isGuardian);
     const pairings = [];
     while (nonGuardians.length > 1){
-      const userOne = nonGuardians[Math.floor(Math.random() * Math.floor(nonGuardians.length))];
+      const userOne = nonGuardians[Math.floor(Math.random() * nonGuardians.length)];
       nonGuardians = nonGuardians.filter(user => user !== userOne);
-      const userTwo = nonGuardians[Math.floor(Math.random() * Math.floor(nonGuardians.length))];
+      const userTwo = nonGuardians[Math.floor(Math.random() * nonGuardians.length)];
       nonGuardians = nonGuardians.filter(user => user !== userTwo);
       pairings.push(this.makePairing(userOne, userTwo));
       pairings.push(this.makePairing(userTwo, userOne));
     }
+    // Sloppy way to temporarily deal with odd number of participants
     if (nonGuardians.length === 1){
       pairings.push(this.makePairing(nonGuardians[0], 'no friends'));
     }
@@ -143,6 +144,7 @@ export class MainComponent implements OnInit {
     FileSaver.saveAs(blob, 'draw.json');
   }
 
+  // Makes the objects we want when it's time to pair everyone
   makePairing(gifter, giftee): object {
     return {
       discordUser: gifter.discordUser,
