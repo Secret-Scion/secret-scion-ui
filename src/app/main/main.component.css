@@ -27,6 +27,11 @@ mat-expansion-panel {
   color: white;
 }
 
+.mat-input-element::placeholder {
+  color: white;
+  /* add placeholder css here */
+}
+
 /* Class Selectors */
 .signUpToggle {
   margin-top: 1em;
