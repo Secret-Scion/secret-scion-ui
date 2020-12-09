@@ -125,20 +125,17 @@ export class MainComponent implements OnInit {
 
   // Takes all non guardians, pairs them for gifts then spits out a json file
   pairAndMakeJson(): void {
-    let nonGuardians = this.allUsersArr.filter(user => !user.isGuardian);
+    let gifters = this.allUsersArr.filter(user => !user.isGuardian);
+    let giftees = this.allUsersArr.filter(user => !user.isGuardian);
     const pairings = [];
-    while (nonGuardians.length > 1){
-      const userOne = nonGuardians[Math.floor(Math.random() * nonGuardians.length)];
-      nonGuardians = nonGuardians.filter(user => user !== userOne);
-      const userTwo = nonGuardians[Math.floor(Math.random() * nonGuardians.length)];
-      nonGuardians = nonGuardians.filter(user => user !== userTwo);
-      pairings.push(this.makePairing(userOne, userTwo));
-      pairings.push(this.makePairing(userTwo, userOne));
+    while (gifters.length > 0){
+      const gifter = gifters[Math.floor(Math.random() * gifters.length)];
+      gifters = gifters.filter(user => user !== gifter);
+      const giftee = giftees[Math.floor(Math.random() * giftees.length)];
+      giftees = giftees.filter(user => user !== giftee);
+      pairings.push(this.makePairing(gifter, giftee));
     }
-    // Sloppy way to temporarily deal with odd number of participants
-    if (nonGuardians.length === 1){
-      pairings.push(this.makePairing(nonGuardians[0], 'no friends'));
-    }
+
     const pairingJson = JSON.stringify(pairings);
     const blob = new Blob([pairingJson], { type: 'application/json' });
     FileSaver.saveAs(blob, 'draw.json');
