@@ -123,6 +123,7 @@ export class MainComponent implements OnInit {
     FileSaver.saveAs(blob, 'users.json');
   }
 
+  // Takes all non guardians, pairs them for gifts then spits out a json file
   pairAndMakeJson(): void {
     let nonGuardians = this.allUsersArr.filter(user => !user.isGuardian);
     const pairings = [];
@@ -140,6 +141,13 @@ export class MainComponent implements OnInit {
         discordUser: userTwo.discordUser,
         discriminator: userTwo.discriminator,
         giftRecipient: userOne
+      });
+    }
+    if (nonGuardians.length === 1){
+      pairings.push({
+        discordUser: nonGuardians[0].discordUser,
+        discriminator: nonGuardians[0].discriminator,
+        giftRecipient: 'no friends'
       });
     }
     const pairingJson = JSON.stringify(pairings);
