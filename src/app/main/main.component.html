@@ -28,6 +28,8 @@
       (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header [expandedHeight]="'3em'" [collapsedHeight]="'0em !important'"
         style="justify-content: center !important;" (click)="showToggle()">
+        <span style="color: red;">*</span>
+        <span style="color: white; margin-left: .25em; font-style: italic;">Required</span>
       </mat-expansion-panel-header>
 
       <div class="col container-fluid textColor" [formGroup]="signUpForm">
@@ -36,7 +38,7 @@
         <div class="row" style="justify-content: flex-start;">
           <div class="col">
             <div class="row">
-              <label>Server Role</label>
+              <label>Server Role<span style="color: red; margin-left: .25em;">*</span></label>
             </div>
             <div class="row">
               <mat-radio-group formControlName="isGuardian">
@@ -63,12 +65,20 @@
         <div class="row" style="justify-content: flex-start;">
           <div class="col-5">
             <div class="row">
-              <label>Discord Username</label>
+              <label>Discord Username<span style="color: red; margin-left: .25em;">*</span></label>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" style="width: 100%; margin-right: 1em;">
-                <input matInput formControlName="discordUser">
+                <input matInput formControlName="discordUser"
+                  (blur)="signUpForm.controls.discriminator.markAsTouched()">
               </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-error *ngIf="(signUpForm.controls.discordUser.touched || signUpForm.controls.discriminator.touched)
+              && (signUpForm.controls.discordUser.invalid || signUpForm.controls.discriminator.invalid)"
+                style="margin-top: -1em;">
+                Discord Username required <span style="font-style: italic;">(UserName#1234)</span>
+              </mat-error>
             </div>
           </div>
           <div class="col-1">
@@ -115,6 +125,14 @@
                   cdkAutosizeMaxRows="10" formControlName="userLikes"></textarea>
               </mat-form-field>
             </div>
+            <div class="row" style="justify-content: flex-end; margin-top: -1em; margin-right: .25em;">
+              <mat-error *ngIf="signUpForm.controls.userLikes.invalid">
+                {{2000 - signUpForm.controls.userLikes.value.length}}
+              </mat-error>
+              <mat-error *ngIf="signUpForm.controls.userLikes.valid" style="color: white;">
+                {{2000 - signUpForm.controls.userLikes.value.length}}
+              </mat-error>
+            </div>
           </div>
         </div>
         <br>
@@ -130,6 +148,14 @@
                   cdkAutosizeMaxRows="10" formControlName="userDislikes"></textarea>
               </mat-form-field>
             </div>
+            <div class="row" style="justify-content: flex-end; margin-top: -1em; margin-right: .25em;">
+              <mat-error *ngIf="signUpForm.controls.userDislikes.invalid">
+                {{2000 - signUpForm.controls.userDislikes.value.length}}
+              </mat-error>
+              <mat-error *ngIf="signUpForm.controls.userDislikes.valid" style="color: white;">
+                {{2000 - signUpForm.controls.userDislikes.value.length}}
+              </mat-error>
+            </div>
           </div>
         </div>
         <br>
@@ -138,7 +164,8 @@
 
       <mat-action-row style="justify-content: space-evenly;">
         <div class="row">
-          <button mat-raised-button (click)="showToggle(true)" style="width: 10em;">
+          <button mat-raised-button (click)="signUpForm.valid ? showToggle(true) : signUpForm.markAllAsTouched()"
+            style="width: 10em;">
             Submit
           </button>
         </div>

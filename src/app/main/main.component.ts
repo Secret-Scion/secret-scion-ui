@@ -61,8 +61,8 @@ export class MainComponent implements OnInit {
         Validators.maxLength(3),
         Validators.minLength(2)]],
     faveGames: [''],
-    userLikes: [''],
-    userDislikes: [''],
+    userLikes: ['', Validators.maxLength(2000)],
+    userDislikes: ['', Validators.maxLength(2000)],
     isGuardian: ['', Validators.required]
   });
 
@@ -98,8 +98,6 @@ export class MainComponent implements OnInit {
   }
 
   showToggle(submit?): void {
-    this.signUpForm.markAllAsTouched();
-    console.log(this.signUpForm.value);
     if (this.showSignUp) {
       this.showSignUp = false;
     } else if (!this.showSignUp) {
@@ -107,7 +105,7 @@ export class MainComponent implements OnInit {
     }
     this.changeState();
 
-    if (submit) {
+    if (submit && this.signUpForm.valid) {
       const newUser = this.signUpForm.value;
       newUser.id = this.currId;
       this.allUsersArr.push(newUser);
@@ -117,15 +115,15 @@ export class MainComponent implements OnInit {
     }
   }
 
-  // this function spits out a json file...but not the json file I need...
-  saveToJson() {
+  saveToJson(): void {
+    // Brance fixed the json export by parsing the JSON to a string...//
     const jsonse = JSON.stringify(this.allUsersArr);
-    const blob = new Blob([jsonse], {type: "application/json"});
+    // ... I do not know why I did not think to do that. //
+    const blob = new Blob([jsonse], { type: 'application/json' });
     FileSaver.saveAs(blob, 'users.json');
-    console.log(blob);
   }
 
-  findNextId() {
+  findNextId(): void {
     const idArr = [];
     this.allUsersArr.forEach(user => {
       idArr.push(user.id);
