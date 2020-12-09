@@ -123,6 +123,30 @@ export class MainComponent implements OnInit {
     FileSaver.saveAs(blob, 'users.json');
   }
 
+  pairAndMakeJson(): void {
+    let nonGuardians = this.allUsersArr.filter(user => !user.isGuardian);
+    const pairings = [];
+    while (nonGuardians.length > 1){
+      const userOne = nonGuardians[Math.floor(Math.random() * Math.floor(nonGuardians.length))];
+      nonGuardians = nonGuardians.filter(user => user !== userOne);
+      const userTwo = nonGuardians[Math.floor(Math.random() * Math.floor(nonGuardians.length))];
+      nonGuardians = nonGuardians.filter(user => user !== userTwo);
+      pairings.push({
+        discordUser: userOne.discordUser,
+        discriminator: userOne.discriminator,
+        giftRecipient: userTwo
+      });
+      pairings.push({
+        discordUser: userTwo.discordUser,
+        discriminator: userTwo.discriminator,
+        giftRecipient: userOne
+      });
+    }
+    const pairingJson = JSON.stringify(pairings);
+    const blob = new Blob([pairingJson], { type: 'application/json' });
+    FileSaver.saveAs(blob, 'draw.json');
+  }
+
   findNextId(): void {
     const idArr = [];
     this.allUsersArr.forEach(user => {
