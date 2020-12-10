@@ -123,6 +123,33 @@ export class MainComponent implements OnInit {
     FileSaver.saveAs(blob, 'users.json');
   }
 
+  // Takes all non guardians, pairs them for gifts then spits out a json file
+  pairAndMakeJson(): void {
+    let gifters = this.allUsersArr.filter(user => !user.isGuardian);
+    let giftees = this.allUsersArr.filter(user => !user.isGuardian);
+    const pairings = [];
+    while (gifters.length > 0){
+      const gifter = gifters[Math.floor(Math.random() * gifters.length)];
+      gifters = gifters.filter(user => user !== gifter);
+      const giftee = giftees[Math.floor(Math.random() * giftees.length)];
+      giftees = giftees.filter(user => user !== giftee);
+      pairings.push(this.makePairing(gifter, giftee));
+    }
+
+    const pairingJson = JSON.stringify(pairings);
+    const blob = new Blob([pairingJson], { type: 'application/json' });
+    FileSaver.saveAs(blob, 'draw.json');
+  }
+
+  // Makes the objects we want when it's time to pair everyone
+  makePairing(gifter, giftee): object {
+    return {
+      discordUser: gifter.discordUser,
+      discriminator: gifter.discriminator,
+      giftRecipient: giftee
+    };
+  }
+
   findNextId(): void {
     const idArr = [];
     this.allUsersArr.forEach(user => {
