@@ -127,10 +127,10 @@
             </div>
             <div class="row" style="justify-content: flex-end; margin-top: -1em; margin-right: .25em;">
               <mat-error *ngIf="signUpForm.controls.userLikes.invalid">
-                {{2000 - signUpForm.controls.userLikes.value.length}}
+                {{2000 - signUpForm.controls.userLikes.value?.length}}
               </mat-error>
               <mat-error *ngIf="signUpForm.controls.userLikes.valid" style="color: white;">
-                {{2000 - signUpForm.controls.userLikes.value.length}}
+                {{2000 - signUpForm.controls.userLikes.value?.length}}
               </mat-error>
             </div>
           </div>
@@ -150,10 +150,10 @@
             </div>
             <div class="row" style="justify-content: flex-end; margin-top: -1em; margin-right: .25em;">
               <mat-error *ngIf="signUpForm.controls.userDislikes.invalid">
-                {{2000 - signUpForm.controls.userDislikes.value.length}}
+                {{2000 - signUpForm.controls.userDislikes.value?.length}}
               </mat-error>
               <mat-error *ngIf="signUpForm.controls.userDislikes.valid" style="color: white;">
-                {{2000 - signUpForm.controls.userDislikes.value.length}}
+                {{2000 - signUpForm.controls.userDislikes.value?.length}}
               </mat-error>
             </div>
           </div>

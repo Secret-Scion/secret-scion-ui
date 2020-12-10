@@ -57,7 +57,8 @@ export class MainComponent implements OnInit {
         Validators.maxLength(4)]],
     age: ['',
       [
-        Validators.required,
+        // This breaks things because there is no field for age.
+        // Validators.required,
         Validators.maxLength(3),
         Validators.minLength(2)]],
     faveGames: [''],
