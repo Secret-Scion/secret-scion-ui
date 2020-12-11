@@ -78,6 +78,10 @@ export class MainComponent implements OnInit {
 
   userFavesArr: string[] = [];
 
+  gifters = this.allUsersArr;
+  giftees = this.allUsersArr;
+  pairings = [];
+
   // Constructor and Lifecycle Methods ONLY //
   constructor(
     private fb: FormBuilder,
@@ -85,6 +89,7 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('You expected a normal console log but it is I, Dio!');
     this.showSignUp = false;
     this.showToggle(); // Remove this after form works
     console.log(this.allUsersArr);
@@ -126,19 +131,16 @@ export class MainComponent implements OnInit {
 
   // Takes all non guardians, pairs them for gifts then spits out a json file
   pairAndMakeJson(): void {
-    const gifters = this.allUsersArr.filter(user => !user.isGuardian);
-    let giftees = this.allUsersArr.filter(user => !user.isGuardian);
-    const pairings = [];
-    for (const gifter of gifters){
+    for (const gifter of this.gifters) {
       let giftee = null;
       do {
-        giftee = giftees[Math.floor(Math.random() * giftees.length)];
-      }while (giftee === gifter);
-      giftees = giftees.filter(user => user !== giftee);
-      pairings.push(this.makePairing(gifter, giftee));
+        giftee = this.giftees[Math.floor(Math.random() * this.giftees.length)];
+      } while (giftee === gifter);
+      this.giftees = this.giftees.filter(user => user !== giftee);
+      this.pairings.push(this.makePairing(gifter, giftee));
     }
 
-    const pairingJson = JSON.stringify(pairings);
+    const pairingJson = JSON.stringify(this.pairings);
     const blob = new Blob([pairingJson], { type: 'application/json' });
     FileSaver.saveAs(blob, 'draw.json');
   }
@@ -148,6 +150,7 @@ export class MainComponent implements OnInit {
     return {
       discordUser: gifter.discordUser,
       discriminator: gifter.discriminator,
+      isGuardian: gifter.isGuardian,
       giftRecipient: giftee
     };
   }
