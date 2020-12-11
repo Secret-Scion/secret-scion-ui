@@ -126,14 +126,15 @@ export class MainComponent implements OnInit {
 
   // Takes all non guardians, pairs them for gifts then spits out a json file
   pairAndMakeJson(): void {
-    const gifters = this.allUsersArr.filter(user => !user.isGuardian);
-    let giftees = this.allUsersArr.filter(user => !user.isGuardian);
+    const gifters = this.allUsersArr;
+    gifters.sort((a, b) => (a.isGuardian === b.isGuardian) ? 0 : a.isGuardian ? -1 : 1);
+    let giftees = this.allUsersArr;
     const pairings = [];
     for (const gifter of gifters){
       let giftee = null;
       do {
         giftee = giftees[Math.floor(Math.random() * giftees.length)];
-      }while (giftee === gifter);
+      }while (giftee === gifter || (gifter.isGuardian && giftee.isGuardian));
       giftees = giftees.filter(user => user !== giftee);
       pairings.push(this.makePairing(gifter, giftee));
     }
