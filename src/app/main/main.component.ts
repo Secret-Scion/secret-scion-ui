@@ -78,10 +78,6 @@ export class MainComponent implements OnInit {
 
   userFavesArr: string[] = [];
 
-  gifters = this.allUsersArr;
-  giftees = this.allUsersArr;
-  pairings = [];
-
   // Constructor and Lifecycle Methods ONLY //
   constructor(
     private fb: FormBuilder,
@@ -144,7 +140,7 @@ export class MainComponent implements OnInit {
       pairings.push(this.makePairing(gifter, giftee));
     }
 
-    const pairingJson = JSON.stringify(this.pairings);
+    const pairingJson = JSON.stringify(pairings);
     const blob = new Blob([pairingJson], { type: 'application/json' });
     FileSaver.saveAs(blob, 'draw.json');
   }
