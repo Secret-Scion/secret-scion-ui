@@ -85,6 +85,7 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('You expected a normal console log but it is I, Dio!');
     this.showSignUp = false;
     this.showToggle(); // Remove this after form works
     console.log(this.allUsersArr);
@@ -130,11 +131,11 @@ export class MainComponent implements OnInit {
     gifters.sort((a, b) => (a.isGuardian === b.isGuardian) ? 0 : a.isGuardian ? -1 : 1);
     let giftees = [...this.allUsersArr];
     const pairings = [];
-    for (const gifter of gifters){
+    for (const gifter of gifters) {
       let giftee = null;
       do {
         giftee = giftees[Math.floor(Math.random() * giftees.length)];
-      }while (giftee === gifter || (gifter.isGuardian && giftee.isGuardian));
+      } while (giftee === gifter || (gifter.isGuardian && giftee.isGuardian));
       giftees = giftees.filter(user => user !== giftee);
       pairings.push(this.makePairing(gifter, giftee));
     }
@@ -149,6 +150,7 @@ export class MainComponent implements OnInit {
     return {
       discordUser: gifter.discordUser,
       discriminator: gifter.discriminator,
+      isGuardian: gifter.isGuardian,
       giftRecipient: giftee
     };
   }
