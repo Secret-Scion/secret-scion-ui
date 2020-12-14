@@ -1,4 +1,5 @@
-// tslint:disable: variable-name
+import { User } from './../models/users';
+// tslint:disable: letiable-name
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
@@ -7,6 +8,7 @@ import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/
 import * as FileSaver from 'file-saver';
 import { take } from 'rxjs/operators';
 import * as UserData from '../users.json';
+import * as signUpData from '../signUp.json';
 
 // Please comment your code as needed. //
 // We are not all Brance //
@@ -33,9 +35,10 @@ export class MainComponent implements OnInit {
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  // Establish all Properties/Variables here //
+  // Establish all Properties/letiables here //
   // Please group properties of same type together when possible //
   allUsersArr: any = (UserData as any).default;
+  userSignUp: any = (signUpData as any).default['Form Responses 1'];
   showSignUp: boolean;
   currentState = 'initial';
   panelOpenState = false;
@@ -85,11 +88,63 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('You expected a normal console log but it is I, Dio!');
+    // console.log('You expected a normal console log but it is I, Dio!');
+    console.log(this.userSignUp);
     this.showSignUp = false;
     this.showToggle(); // Remove this after form works
-    console.log(this.allUsersArr);
+    // console.log(this.allUsersArr);
     this.findNextId();
+    this.convertToUsers();
+    this.modifyTestDataAges();
+  }
+
+  getAge(DOB): number {
+    const today = new Date();
+    const birthDate = new Date(DOB);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  modifyTestDataAges(): void {
+    this.allUsersArr.forEach(user => {
+      if (user.age >= 18) {
+        user.over18 = true;
+      } else {
+        user.over18 = false;
+      }
+      delete user.age;
+    });
+  }
+
+  determineGuardian(user): boolean {
+    console.log(user.whatIsYourRoleInTheDiscordServer);
+    if (user.whatIsYourRoleInTheDiscordServer === 'The Common Rabble') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  convertToUsers(): void {
+    this.userSignUp.forEach(user => {
+
+      const newUser: User = {
+        id: this.currId,
+        over18: this.getAge(user.dateOfBirth) >= 18 ? true : false,
+        discordUser: user.discordUsername,
+        discriminator: user.discordDiscriminator,
+        faveGames: user.favoriteGames.split(', '),
+        isGuardian: this.determineGuardian(user),
+        userDislikes: user.dislikes,
+        userLikes: user.likes,
+      };
+      this.allUsersArr.push(newUser);
+    });
+    console.log(this.allUsersArr);
   }
 
   // All functions established here //
