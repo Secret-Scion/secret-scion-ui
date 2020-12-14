@@ -95,6 +95,7 @@ export class MainComponent implements OnInit {
     // console.log(this.allUsersArr);
     this.findNextId();
     this.convertToUsers();
+    this.modifyTestDataAges();
   }
 
   getAge(DOB): number {
@@ -106,6 +107,17 @@ export class MainComponent implements OnInit {
       age--;
     }
     return age;
+  }
+
+  modifyTestDataAges(): void {
+    this.allUsersArr.forEach(user => {
+      if (user.age >= 18) {
+        user.over18 = true;
+      } else {
+        user.over18 = false;
+      }
+      delete user.age;
+    });
   }
 
   convertToUsers(): void {
@@ -126,8 +138,9 @@ export class MainComponent implements OnInit {
         newUser.isGuardian = false;
       }
 
-      console.log(newUser);
+      this.allUsersArr.push(newUser);
     });
+    console.log(this.allUsersArr);
   }
 
   // All functions established here //
