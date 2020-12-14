@@ -1,14 +1,12 @@
-import { User } from './../models/users';
-// tslint:disable: letiable-name
-
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { take } from 'rxjs/operators';
-import * as UserData from '../users.json';
 import * as signUpData from '../signUp.json';
+import * as UserData from '../users.json';
+import { User } from './../models/users';
 
 // Please comment your code as needed. //
 // We are not all Brance //
@@ -38,7 +36,7 @@ export class MainComponent implements OnInit {
   // Establish all Properties/letiables here //
   // Please group properties of same type together when possible //
   allUsersArr: any = (UserData as any).default;
-  userSignUp: any = (signUpData as any).default['Form Responses 1'];
+  userSignUp: any = (signUpData as any)?.default['Form Responses 1'];
   showSignUp: boolean;
   currentState = 'initial';
   panelOpenState = false;
