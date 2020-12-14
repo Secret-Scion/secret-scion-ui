@@ -120,6 +120,15 @@ export class MainComponent implements OnInit {
     });
   }
 
+  determineGuardian(user): boolean {
+    console.log(user.whatIsYourRoleInTheDiscordServer);
+    if (user.whatIsYourRoleInTheDiscordServer === 'The Common Rabble') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   convertToUsers(): void {
     this.userSignUp.forEach(user => {
 
@@ -129,15 +138,10 @@ export class MainComponent implements OnInit {
         discordUser: user.discordUsername,
         discriminator: user.discordDiscriminator,
         faveGames: user.favoriteGames.split(', '),
-        isGuardian: null,
+        isGuardian: this.determineGuardian(user),
         userDislikes: user.dislikes,
         userLikes: user.likes,
       };
-
-      if (user.whatIsYourRoleInTheServer === 'The Common Rabble') {
-        newUser.isGuardian = false;
-      }
-
       this.allUsersArr.push(newUser);
     });
     console.log(this.allUsersArr);
