@@ -120,11 +120,7 @@ export class MainComponent implements OnInit {
 
   determineGuardian(user): boolean {
     console.log(user.whatIsYourRoleInTheDiscordServer);
-    if (user.whatIsYourRoleInTheDiscordServer === 'The Common Rabble') {
-      return false;
-    } else {
-      return true;
-    }
+    return user.whatIsYourRoleInTheDiscordServer !== 'The Common Rabble';
   }
 
   convertToUsers(): void {
@@ -132,7 +128,7 @@ export class MainComponent implements OnInit {
 
       const newUser: User = {
         id: this.currId,
-        over18: this.getAge(user.dateOfBirth) >= 18 ? true : false,
+        over18: this.getAge(user.dateOfBirth) >= 18,
         discordUser: user.discordUsername,
         discriminator: user.discordDiscriminator,
         faveGames: user.favoriteGames.split(', '),
@@ -149,7 +145,7 @@ export class MainComponent implements OnInit {
   changeState(): void {
     // Toggles panel expansion animation and Fader animation //
     this.currentState = (this.currentState === 'initial') ? 'final' : 'initial';
-    this.panelOpenState = (this.currentState === 'initial') ? false : true;
+    this.panelOpenState = (this.currentState !== 'initial');
   }
 
   showToggle(submit?): void {
